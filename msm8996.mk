@@ -141,7 +141,7 @@ PRODUCT_PACKAGES += \
     camera.msm8996 \
     libshims_camera \
     libshims_qcamera-daemon \
-	Snap
+	SnapdragonCamera
 
 # Connectivity Engine support (CNE)
 PRODUCT_PACKAGES += \
