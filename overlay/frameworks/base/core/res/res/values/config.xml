@@ -316,15 +316,12 @@
     <string name="config_ims_package">org.codeaurora.ims</string>
     <bool name="config_dynamic_bind_ims">true</bool>
 
-    <!-- Enable adjusting the button backlight -->
-    <bool name="config_deviceHasVariableButtonBrightness">true</bool>
-
-    <!-- Control the behavior when the user triple presses the power button.		
-            0 - Nothing	
-            1 - Toggle theater mode setting		
-            2 - Brightness boost		
+    <!-- Control the behavior when the user triple presses the power button.
+            0 - Nothing
+            1 - Toggle theater mode setting
+            2 - Brightness boost
     -->	
-    <integer name="config_triplePressOnPowerBehavior">2</integer>			
+    <integer name="config_triplePressOnPowerBehavior">2</integer>
 
     <!-- Override the default detection behavior for the framework method
          android.view.ViewConfiguration#hasPermanentMenuKey().
