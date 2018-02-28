@@ -22,3 +22,6 @@ allow init proc:lnk_file { setattr };
 
 allow init consumer_ir_device:file relabelto;
 
+#hvdcp_opti
+allow init init:netlink_kobject_uevent_socket {read}
+allow init init:capability2 {block_suspend}
