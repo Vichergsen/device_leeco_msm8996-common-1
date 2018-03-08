@@ -20,8 +20,6 @@ on boot
     # Enable sched boost
     write /proc/sys/kernel/sched_boost 1
 
-    #Enable hvdcp
-    setprop persist.hvdcp.allow_opti 1
 on enable-low-power
     # Enable all LPMs (this will enable C4, D4, D3, E4 and M3 LPMs)
     write /sys/module/lpm_levels/parameters/sleep_disabled "N"
@@ -130,6 +128,9 @@ on class_start:late_start
     trigger enable-low-power
 
 on charger
+    wait /dev/block/platform/soc/${ro.boot.bootdevice}
+    symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+    mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
     write /sys/devices/system/cpu/cpu1/online 0
     write /sys/devices/system/cpu/cpu2/online 0
     write /sys/devices/system/cpu/cpu3/online 0

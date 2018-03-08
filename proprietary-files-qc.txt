@@ -464,7 +464,8 @@ vendor/lib64/libqmi_encdec.so
 vendor/lib64/libqmi.so
 vendor/lib64/libqmiservices.so
 vendor/lib64/libsmemlog.so
-
+#QC
+vendor/bin/hvdcp_opti
 # Radio
 -app/datastatusnotification/datastatusnotification.apk
 -app/embms/embms.apk
