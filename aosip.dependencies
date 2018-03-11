@@ -11,7 +11,7 @@
    "repository":  "LineageOS/android_packages_resources_devicesettings",
    "target_path": "packages/resources/devicesettings",
    "branch":      "lineage-15.1"
- }
+ },
  {
    "repository":  "hyperUnicorns/sdclang-4.0",
    "target_path": "vendor/qcom/sdclang-4.0/linux-x86",
