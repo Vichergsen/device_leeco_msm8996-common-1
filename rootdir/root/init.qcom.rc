@@ -599,6 +599,8 @@ on property:sys.boot_completed=1
     swapon_all /fstab.qcom
     #Enable hvdcp
     setprop persist.hvdcp.allow_opti 1
+    #Enable Battery save
+    setprop persist.battery.save 1
 # start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
@@ -1024,3 +1026,11 @@ on property:persist.sys.le_fast_chrg_enable=1
 
 on property:persist.sys.le_fast_chrg_enable=0
     write /sys/class/power_supply/le_ab/le_quick_charge_mode 1
+
+on property:persist.battery.save=1
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/powersave_bias 1
+    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/powersave_bias 1
+
+on property:persist.battery.save=0
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/powersave_bias 0
+    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/powersave_bias 0

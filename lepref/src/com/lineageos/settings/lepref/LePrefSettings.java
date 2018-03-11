@@ -7,14 +7,11 @@ package com.lineageos.settings.lepref;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.os.Build;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
@@ -26,7 +23,6 @@ import android.view.MenuItem;
 import android.util.Log;
 import android.os.SystemProperties;
 import java.io.*;
-import android.widget.Toast;
 import android.preference.ListPreference;
 
 public class LePrefSettings extends PreferenceActivity implements OnPreferenceChangeListener {
@@ -34,11 +30,14 @@ public class LePrefSettings extends PreferenceActivity implements OnPreferenceCh
 	private static final String TAG = "LePref";
 	private static final String ENABLE_QC_KEY = "qc_setting";
 	private static final String ENABLE_FOCUS_FIX = "focusfix_setting";
+	private static final String ENABLE_BATTERY_MODE = "battery_mode";
 	private static final String QC_SYSTEM_PROPERTY = "persist.sys.le_fast_chrg_enable";
+	private static final String BATTERY_SYSTEM_PROPERTY = "persist.battery.save";
 	private static final String FOCUSFIX_SYSTEM_PROPERTY = "persist.camera.focus_fix";
 
 	private SwitchPreference mEnableQC;
 	private SwitchPreference mEnableFocusFix;
+	private SwitchPreference mBatterySave;
 
     private Context mContext;
     private SharedPreferences mPreferences;
@@ -53,11 +52,15 @@ public class LePrefSettings extends PreferenceActivity implements OnPreferenceCh
         mEnableQC.setChecked(SystemProperties.getBoolean(QC_SYSTEM_PROPERTY, false));
         mEnableQC.setOnPreferenceChangeListener(this);
 
+				if(Build.MODEL == "Lex820"){
 				mEnableFocusFix = (SwitchPreference) findPreference(ENABLE_FOCUS_FIX);
         mEnableFocusFix.setChecked(SystemProperties.getBoolean(FOCUSFIX_SYSTEM_PROPERTY, false));
-				mEnableFocusFix.setOnPreferenceChangeListener(this);
-    }
+				mEnableFocusFix.setOnPreferenceChangeListener(this);}
 
+				mBatterySave = (SwitchPreference) findPreference(ENABLE_BATTERY_MODE);
+				mBatterySave.setChecked(SystemProperties.getBoolean(BATTERY_SYSTEM_PROPERTY, true));
+				mBatterySave.setOnPreferenceChangeListener(this);
+			}
 	// Control Quick Charge
     private void setEnableQC(boolean value) {
 		if(value) {
@@ -67,10 +70,17 @@ public class LePrefSettings extends PreferenceActivity implements OnPreferenceCh
 		}
     }
 		private void setEnableFocusFix(boolean value) {
-		if(value) {
+		if(Build.MODEL == "Lex820"){if(value) {
 			SystemProperties.set(FOCUSFIX_SYSTEM_PROPERTY, "1");
 		} else {
 			SystemProperties.set(FOCUSFIX_SYSTEM_PROPERTY, "0");
+		}
+	}}
+		private void setBatterySave(boolean value) {
+		if(value) {
+			SystemProperties.set(BATTERY_SYSTEM_PROPERTY, "1");
+		} else {
+			SystemProperties.set(BATTERY_SYSTEM_PROPERTY, "0");
 		}
     }
     @Override
@@ -99,11 +109,17 @@ public class LePrefSettings extends PreferenceActivity implements OnPreferenceCh
 			return true;
 		}
 			if (ENABLE_FOCUS_FIX.equals(key)) {
-				value = (Boolean) newValue;
+				if(Build.MODEL == "Lex820"){value = (Boolean) newValue;
 				mEnableFocusFix.setChecked(value);
 				setEnableFocusFix(value);
 				return true;
-		}
+		}}
+		if (ENABLE_BATTERY_MODE.equals(key)) {
+			value = (Boolean) newValue;
+			mBatterySave.setChecked(value);
+			setBatterySave(value);
+			return true;
+	}
       	return false;
     }
 

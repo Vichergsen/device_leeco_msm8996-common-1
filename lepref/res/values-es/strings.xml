@@ -17,6 +17,8 @@
 
     <!-- Bateria -->
     <string name="battery_settings_title">Bateria</string>
+    <string name="battery_title">Ahorro de bateria</string>
+    <string name="battery_summary">Activar/desactivar el modo ahorro de bateria</string>
     <string name="qc_title">Carga rapida</string>
     <string name="qc_summary">Activar o desactivar la carga rapida</string>
     <string name="focusfix_settings_title">Camara</string>
