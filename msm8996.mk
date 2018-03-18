@@ -191,7 +191,7 @@ PRODUCT_PACKAGES += \
     android.hidl.base@1.0 \
     android.hidl.manager@1.0 \
     android.hidl.manager@1.0-java
-	
+
 # KCAL
 PRODUCT_PACKAGES += \
     kcal
@@ -260,10 +260,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-impl
 
-# LePref settigs modules
-PRODUCT_PACKAGES += \
-    LePref
-	
+
 # Lights
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-impl \
@@ -360,7 +357,7 @@ PRODUCT_BOOT_JARS += \
 PRODUCT_PACKAGES += \
     android.hardware.thermal@1.0-impl \
 	thermal.msm8996
-	
+
 	PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/configs/thermal-engine.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine.conf \
 	$(LOCAL_PATH)/configs/thermal-engine-vr.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-vr.conf
