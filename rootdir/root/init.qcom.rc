@@ -62,6 +62,7 @@ on init
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+    restorecon_recursive /dev/block/platform/soc/${ro.boot.bootdevice}
 
     mount_all fstab.qcom --early
 
@@ -582,13 +583,12 @@ on boot
     write /sys/bus/msm_subsys/devices/subsys5/restart_level "related"
 
 on property:sys.boot_completed=1
-    write /dev/kmsg "Boot completed "
-
+    write /dev/kmsg "Boot completed"
     # end boot time fs tune
-    write /sys/block/sda/queue/read_ahead_kb 512
-    write /sys/block/sda/queue/nr_requests 512
-    write /sys/block/dm-0/queue/read_ahead_kb 512
-    write /sys/block/dm-1/queue/read_ahead_kb 512
+    write /sys/block/sda/queue/read_ahead_kb 1024
+    write /sys/block/sda/queue/nr_requests 1024
+    write /sys/block/dm-0/queue/read_ahead_kb 1024
+    write /sys/block/dm-1/queue/read_ahead_kb 1024
     write /sys/block/sda/queue/iostats 1
 
     # CPE fw_name used by sound trigger HAL
@@ -596,10 +596,18 @@ on property:sys.boot_completed=1
 
     # Enable ZRAM on boot_complete
     swapon_all /fstab.qcom
-    #Enable hvdcp
+    # Enable hvdcp
     setprop persist.hvdcp.allow_opti 1
     #Enable Battery save
     setprop persist.battery.save 1
+
+# fingerprint service
+service fingerprintd /system/bin/fingerprintd
+    class late_start
+    user system
+    group system
+    writepid /dev/cpuset/system-background/tasks
+
 # start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
@@ -634,7 +642,7 @@ service qseecomd /vendor/bin/qseecomd
    group root
    writepid /dev/cpuset/system-background/tasks
 
-service thermal-engine /vendor/bin/thermal-engine  -c ${sys.qcom.thermalcfg:-/vendor/etc/thermal-engine.conf}
+service thermal-engine /vendor/bin/thermal-engine
    class main
    user root
    socket thermal-send-client stream 0666 system system
