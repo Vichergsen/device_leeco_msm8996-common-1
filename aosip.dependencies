@@ -13,6 +13,11 @@
    "branch":      "lineage-15.1"
  },
  {
+    "repository" : "AOSiP/platform_packages_apps_Snap",
+    "target_path": "packages/apps/Snap",
+    "branch"     : "oreo-mr1"
+ },
+ {
    "repository":  "hyperUnicorns/sdclang-4.0",
    "target_path": "vendor/qcom/sdclang-4.0/linux-x86",
    "branch":      "master"
