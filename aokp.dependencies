@@ -12,14 +12,4 @@
    "target_path": "packages/resources/devicesettings",
    "branch":      "lineage-15.1"
  },
- {
-   "remote"   : "aosip",
-   "repository": "platform_packages_apps_SnapdragonCamera",
-   "target_path": "packages/apps/SnapdragonCamera"
- },
- {
-   "repository":  "hyperUnicorns/sdclang-4.0",
-   "target_path": "vendor/qcom/sdclang-4.0/linux-x86",
-   "branch":      "master"
- }
 ]
